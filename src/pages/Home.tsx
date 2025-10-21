@@ -169,28 +169,30 @@ export const Home = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 md:py-32">
+      <section className="relative overflow-hidden py-16 md:py-24 lg:py-32 xl:py-40">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <div 
-            className="w-full h-full bg-cover bg-center" 
+            className="w-full h-full bg-cover bg-center bg-no-repeat" 
             style={{
-              backgroundImage: 'url(https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80)',
-              opacity: 0.3
+              backgroundImage: 'url(/images/hero-delivery.jpg)',
+              backgroundPosition: 'center center',
+              backgroundSize: 'cover',
+              filter: 'brightness(0.7)'
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40" />
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 flex justify-center">
-          <div className="max-w-3xl text-center">
+        <div className="relative z-10 container mx-auto px-4 flex items-center min-h-[70vh]">
+          <div className="max-w-3xl mx-auto text-center">
             <motion.h1 
-              className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight mb-6"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              نجعل التنقل في بيوكرى أسهل من أي وقتٍ مضى
+              <span className="text-[#E1AA36]">توصيل سريع</span> وموثوق في جميع أنحاء بيوكرى
             </motion.h1>
             
             <motion.div 
@@ -199,9 +201,9 @@ export const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <p className="text-lg md:text-xl text-gray-700 text-center">
+              <p className="text-lg md:text-xl text-white/90 text-center font-medium max-w-2xl mx-auto">
                 {text}
-                <span className="ml-1 animate-pulse">|</span>
+                <span className="mr-1 animate-pulse text-white">|</span>
               </p>
             </motion.div>
             
@@ -212,15 +214,41 @@ export const Home = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <Link to="/order">
-                <Button className="bg-[#E1AA36] hover:bg-[#d49e2e] text-white px-8 py-6 text-lg font-medium shadow-lg hover:shadow-xl transition-all">
+                <Button className="bg-[#E1AA36] hover:bg-[#d49e2e] text-white px-8 py-6 text-lg font-medium shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
                   🚗 اطلب خدمة الآن
                 </Button>
               </Link>
               <a href="tel:+212600000000">
-                <Button variant="outline" className="border-2 border-[#E1AA36] text-[#E1AA36] hover:bg-[#E1AA36] hover:text-white px-8 py-6 text-lg font-medium transition-all">
+                <Button variant="outline" className="border-2 border-white text-white hover:bg-white/10 hover:border-[#E1AA36] px-8 py-6 text-lg font-medium transition-all transform hover:scale-105">
                   📞 تواصل معنا
                 </Button>
               </a>
+            </motion.div>
+            
+            <motion.div 
+              className="mt-12 flex flex-wrap justify-center gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <div className="flex items-center text-white/90">
+                <svg className="w-5 h-5 ml-2 text-[#E1AA36]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>توصيل سريع</span>
+              </div>
+              <div className="flex items-center text-white/90">
+                <svg className="w-5 h-5 ml-2 text-[#E1AA36]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>خدمة عملاء على مدار الساعة</span>
+              </div>
+              <div className="flex items-center text-white/90">
+                <svg className="w-5 h-5 ml-2 text-[#E1AA36]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>أسعار تنافسية</span>
+              </div>
             </motion.div>
           </div>
         </div>
