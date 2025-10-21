@@ -2,7 +2,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { ShoppingCart, Package, Truck, Clock, Phone, Droplet, MessageSquare, X } from 'lucide-react';
+import { ShoppingCart, Package, Truck, Clock, Droplet, MessageSquare } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ArrowUp } from 'lucide-react';
@@ -13,42 +13,6 @@ import { toast } from 'sonner';
 export const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [showRatingPopup, setShowRatingPopup] = useState(false);
-  const [hasRated, setHasRated] = useState(() => {
-    // Check if user has already rated in this session
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('hasRated') === 'true';
-    }
-    return false;
-  });
-
-  // Show rating popup after 30 seconds
-  useEffect(() => {
-    if (hasRated) return;
-
-    const timer = setTimeout(() => {
-      setShowRatingPopup(true);
-    }, 30000); // 30 seconds
-
-    return () => clearTimeout(timer);
-  }, [hasRated]);
-
-  const handleRatingSubmit = async (rating: number, feedback: string) => {
-    // In a real app, you would send this to your backend
-    console.log('Rating submitted:', { rating, feedback });
-    
-    // Mark as rated in localStorage
-    setHasRated(true);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('hasRated', 'true');
-    }
-    
-    // Show success message
-    toast.success('شكراً لتقييمك!', {
-      description: 'نقدر لك وقتك في تحسين خدماتنا.',
-      position: 'top-center',
-      duration: 5000,
-    });
-  };
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
@@ -76,7 +40,7 @@ export const Home = () => {
       setIsDeleting(false);
       setLoopNum(loopNum + 1);
     }
-  }, [text, isDeleting, loopNum, toRotate]);
+  }, [text, isDeleting, loopNum]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -86,40 +50,19 @@ export const Home = () => {
     return () => clearTimeout(timer);
   }, [text, isDeleting, handleTyping]);
 
-  // Show button when page is scrolled down
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
-
-  // Scroll to top handler
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
   const features = [
     {
-      icon: <ShoppingCart className="w-12 h-12 text-[#E1AA36]" />,
+      icon: <ShoppingCart className="w-12 h-12 text-[#f1594b]" />,
       title: "1. اطلب الخدمة",
       description: "املأ نموذج الطلب أو تواصل معنا عبر الهاتف، لتحديد احتياجك بدقة واستلمه"
     },
     {
-      icon: <Package className="w-12 h-12 text-[#E1AA36]" />,
+      icon: <Package className="w-12 h-12 text-[#f1594b]" />,
       title: "2. استلم من المندوب",
       description: "يصل المندوب إلى موقعك لاستلام الطرد أو الطلب، في أي وقت وفي أي مكان"
     },
     {
-      icon: <Truck className="w-12 h-12 text-[#E1AA36]" />,
+      icon: <Truck className="w-12 h-12 text-[#f1594b]" />,
       title: "3. التوصيل لوجهته سريعة",
       description: "نضمن توصيل الطلب بأمان وسرعة للوجهة المطلوبة عبر شبكتنا من المندوبين المحترفين"
     }
@@ -127,17 +70,17 @@ export const Home = () => {
 
   const services = [
     {
-      icon: <ShoppingCart className="w-12 h-12 text-[#E1AA36]" />,
+      icon: <ShoppingCart className="w-12 h-12 text-[#f1594b]" />,
       title: "توصيل الطلبات",
       description: "نقوم بتوصيل طلباتك في أي مكان في بيوكرى، سواء كان ذلك منتجات منزلية أو بقالة، وقت قصير فقط."
     },
     {
-      icon: <Clock className="w-12 h-12 text-[#E1AA36]" />,
+      icon: <Clock className="w-12 h-12 text-[#f1594b]" />,
       title: "توصيل سريع",
       description: "خدمة توصيل سريعة لجميع أنحاء المدينة مع مساعدة لطيفة لتلبية احتياجاتك المتنوعة في كل الأوقات"
     },
     {
-      icon: <Droplet className="w-12 h-12 text-[#E1AA36]" />,
+      icon: <Droplet className="w-12 h-12 text-[#f1594b]" />,
       title: "دعم في على مدار الساعة",
       description: "خدمة عملاء متاحة 24/7 لتلبية جميع احتياجاتك والرد على الاستفسارات في أي وقت"
     }
@@ -164,6 +107,41 @@ export const Home = () => {
     }
   ];
 
+  const handleRatingSubmit = async (rating: number, feedback: string) => {
+    // In a real app, you would send this to your backend
+    console.log('Rating submitted:', { rating, feedback });
+    
+    // Mark as rated in localStorage
+    setShowRatingPopup(false);
+    
+    // Show success message
+    toast.success('شكراً لتقييمك!', {
+      description: 'نقدر لك وقتك في تحسين خدماتنا.',
+      position: 'top-center',
+      duration: 5000,
+    });
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100" dir="rtl">
       <Navigation />
@@ -175,12 +153,13 @@ export const Home = () => {
           <div 
             className="w-full h-full bg-cover bg-center bg-no-repeat" 
             style={{
-              backgroundImage: 'url(/images/hero-delivery.jpg)',
+              backgroundImage: 'url(/images/tawsil-hero.png.jpg)',
               backgroundPosition: 'center center',
               backgroundSize: 'cover',
               filter: 'brightness(0.7)'
             }}
           />
+          <div className="absolute inset-0 bg-[#1a1f2e]/70" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40" />
         </div>
 
@@ -192,7 +171,7 @@ export const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-[#E1AA36]">توصيل سريع</span> وموثوق في جميع أنحاء بيوكرى
+              <span className="text-[#f1594b]">نجعل التنقل في بيوكرى</span> أسهل من أي وقتٍ مضى
             </motion.h1>
             
             <motion.div 
@@ -207,113 +186,43 @@ export const Home = () => {
               </p>
             </motion.div>
             
-            <motion.div 
-              className="flex flex-wrap gap-4 justify-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
+            <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/order">
-                <Button className="bg-[#E1AA36] hover:bg-[#d49e2e] text-white px-8 py-6 text-lg font-medium shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <Button className="bg-[#f1594b] hover:bg-[#e04a3b] text-white px-8 py-6 text-lg font-medium shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
                   🚗 اطلب خدمة الآن
                 </Button>
               </Link>
               <a href="tel:+212600000000">
-                <Button variant="outline" className="border-2 border-white text-white hover:bg-white/10 hover:border-[#E1AA36] px-8 py-6 text-lg font-medium transition-all transform hover:scale-105">
+                <Button variant="outline" className="border-2 border-white text-white hover:bg-white/10 hover:border-[#f1594b] px-8 py-6 text-lg font-medium transition-all transform hover:scale-105">
                   📞 تواصل معنا
                 </Button>
               </a>
-            </motion.div>
-            
-            <motion.div 
-              className="mt-12 flex flex-wrap justify-center gap-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <div className="flex items-center text-white/90">
-                <svg className="w-5 h-5 ml-2 text-[#E1AA36]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span>توصيل سريع</span>
-              </div>
-              <div className="flex items-center text-white/90">
-                <svg className="w-5 h-5 ml-2 text-[#E1AA36]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span>خدمة عملاء على مدار الساعة</span>
-              </div>
-              <div className="flex items-center text-white/90">
-                <svg className="w-5 h-5 ml-2 text-[#E1AA36]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span>أسعار تنافسية</span>
-              </div>
-            </motion.div>
+            </div>
           </div>
-        </div>
-      </section>
-      
-      {/* How It Works */}
-      <section className="container mx-auto px-4 py-12 md:py-20">
-        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <span className="inline-block text-sm font-medium text-[#E1AA36] bg-[#FEF8E8] px-3 py-1 rounded-full mb-3">كيف نعمل</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">كيف تعمل خدمة التوصيل في بيوكرى؟</h2>
-          <div className="w-20 h-1 bg-[#E1AA36] mx-auto mb-6 rounded-full"></div>
-          <p className="text-gray-600 md:text-lg">
-            بخطوات بسيطة وسريعة، نوصل احتياجاتك لباب دارك بأمان. خدمة موثوقة وسريعة في جميع أنحاء بيوكرى
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group"
-            >
-              <Card className="h-full p-8 text-center bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 rounded-2xl hover:-translate-y-1">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-[#FEF8E8] flex items-center justify-center group-hover:scale-110 transition-transform">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </Card>
-            </motion.div>
-          ))}
         </div>
       </section>
 
       {/* How It Works */}
       <section className="container mx-auto px-4 py-12 md:py-20">
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <span className="inline-block text-sm font-medium text-[#E1AA36] bg-[#FEF8E8] px-3 py-1 rounded-full mb-3">كيف نعمل</span>
+          <span className="inline-block text-sm font-medium text-[#f1594b] bg-[#fef0ef] px-3 py-1 rounded-full mb-3">كيف نعمل</span>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">كيف تعمل خدمة التوصيل في بيوكرى؟</h2>
-          <div className="w-20 h-1 bg-[#E1AA36] mx-auto mb-6 rounded-full"></div>
+          <div className="w-20 h-1 bg-[#f1594b] mx-auto mb-6 rounded-full"></div>
           <p className="text-gray-600 md:text-lg">
             بخطوات بسيطة وسريعة، نوصل احتياجاتك لباب دارك بأمان. خدمة موثوقة وسريعة في جميع أنحاء بيوكرى
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group"
-            >
+            <div key={index} className="group">
               <Card className="h-full p-8 text-center bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 rounded-2xl hover:-translate-y-1">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-[#FEF8E8] flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-[#fef0ef] flex items-center justify-center group-hover:scale-110 transition-transform">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{feature.description}</p>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
@@ -322,78 +231,53 @@ export const Home = () => {
       <section id="services" className="bg-white py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-block text-sm font-medium text-[#E1AA36] bg-[#FEF8E8] px-3 py-1 rounded-full mb-3">خدماتنا</span>
+            <span className="inline-block text-sm font-medium text-[#f1594b] bg-[#fef0ef] px-3 py-1 rounded-full mb-3">خدماتنا</span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">خدمات النقل في بيوكرى</h2>
-            <div className="w-20 h-1 bg-[#E1AA36] mx-auto mb-6 rounded-full"></div>
+            <div className="w-20 h-1 bg-[#f1594b] mx-auto mb-6 rounded-full"></div>
             <p className="text-gray-600 md:text-lg">
               اكتشف أفضل خدمات النقل والتوصيل في بيوكرى مع ضمان السرعة والموثوقية
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
-            >
-              <Card className="h-full flex flex-col overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="p-1 bg-[#E1AA36] flex-1 flex flex-col">
-                  <div className="bg-white p-6 md:p-8 rounded-t-lg flex-1 flex flex-col">
-                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-[#FEF8E8] flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                      {service.icon}
+            {services.map((service, index) => (
+              <div key={index} className="group">
+                <Card className="h-full flex flex-col overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="p-1 bg-[#f1594b] flex-1 flex flex-col">
+                    <div className="bg-white p-6 md:p-8 rounded-t-lg flex-1 flex flex-col">
+                      <div className="w-20 h-20 rounded-xl bg-[#fef0ef] flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        {service.icon}
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">{service.title}</h3>
+                      <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6 flex-1">
+                        {service.description}
+                      </p>
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">{service.title}</h3>
-                    <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6 flex-1">
-                      {service.description}
-                    </p>
                   </div>
-                </div>
-                <div className="p-4 bg-gray-50 border-t border-gray-100 text-center">
-                  <Link 
-                    to="/order" 
-                    onClick={(e) => {
-                      e.preventDefault();
-                      window.scrollTo(0, 0);
-                      window.location.href = '/order';
-                    }}
-                    className="block w-full"
-                  >
-                    <Button 
-                      className="w-full bg-[#E1AA36] hover:bg-[#d49e2e] text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg hover:shadow-yellow-100 transition-all duration-300"
-                      size="sm"
-                      type="button"
+                  <div className="p-4 bg-gray-50 border-t border-gray-100 text-center">
+                    <Link 
+                      to="/order" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.scrollTo(0, 0);
+                        window.location.href = '/order';
+                      }}
+                      className="block w-full"
                     >
-                      احجز الآن
-                    </Button>
-                  </Link>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-        
-        {/* Additional Transportation Services */}
-        <div className="mt-16 text-center">
-          <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">وسائل النقل المتوفرة</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {[
-              { name: 'توصيل سريع', icon: '🚚' },
-              { name: 'توصيل طلبات', icon: '🛒' },
-              { name: 'توصيل بضائع', icon: '📦' },
-              { name: 'خدمة 24/7', icon: '⏰' }
-            ].map((item, idx) => (
-              <div key={idx} className="bg-white p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div className="text-3xl mb-2">{item.icon}</div>
-                <span className="text-sm font-medium text-gray-700">{item.name}</span>
+                      <Button 
+                        className="w-full bg-[#f1594b] hover:bg-[#e04a3b] text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg hover:shadow-orange-100 transition-all duration-300"
+                        size="sm"
+                        type="button"
+                      >
+                        احجز الآن
+                      </Button>
+                    </Link>
+                  </div>
+                </Card>
               </div>
             ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       {/* Testimonials */}
       <section className="container mx-auto px-4 py-8 md:py-16">
@@ -405,7 +289,7 @@ export const Home = () => {
             <Card key={index} className="p-5 md:p-6">
               <div className="flex justify-center mb-2 md:mb-3">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 md:w-5 md:h-5 fill-[#E1AA36] text-[#E1AA36]" />
+                  <Star key={i} className="w-4 h-4 md:w-5 md:h-5 fill-[#f1594b] text-[#f1594b]" />
                 ))}
               </div>
               <h4 className="font-bold text-center mb-2 text-sm md:text-base">{testimonial.name}</h4>
@@ -420,24 +304,11 @@ export const Home = () => {
       
       {/* Rating Popup */}
       <RatingPopup 
-        isOpen={showRatingPopup && !hasRated}
+        isOpen={showRatingPopup}
         onClose={() => setShowRatingPopup(false)}
         onSubmit={handleRatingSubmit}
       />
 
-      {/* Rating FAB */}
-      <motion.button
-        onClick={() => setShowRatingPopup(true)}
-        className="fixed left-6 bottom-6 z-40 w-14 h-14 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg hover:shadow-xl flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        aria-label="تقييم الخدمة"
-      >
-        <MessageSquare className="w-6 h-6" />
-      </motion.button>
-      
       {/* Back to Top Button */}
       <AnimatePresence>
         {isVisible && (

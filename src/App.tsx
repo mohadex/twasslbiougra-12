@@ -7,6 +7,7 @@ import { Home } from "./pages/Home";
 import { Forum } from "./components/Forum";
 import { Transport } from "./pages/Transport";
 import NotFound from "./pages/NotFound";
+import { ScrollToTop } from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/order" element={<Forum />} />

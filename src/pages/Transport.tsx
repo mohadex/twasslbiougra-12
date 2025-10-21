@@ -53,10 +53,10 @@ const ServiceCard = ({ service, onRate }: { service: TransportService; onRate: (
   const getServiceIcon = (type: string) => {
     const iconClass = "w-10 h-10 p-2 rounded-lg";
     switch (type) {
-      case 'taxi': return <Car className={`${iconClass} bg-blue-50 text-blue-600`} />;
-      case 'delivery': return <Package className={`${iconClass} bg-green-50 text-green-600`} />;
-      case 'bike': return <Bike className={`${iconClass} bg-orange-50 text-orange-600`} />;
-      default: return <Truck className={`${iconClass} bg-purple-50 text-purple-600`} />;
+      case 'taxi': return <Car className={`${iconClass} bg-[#fef0ef] text-[#f1594b]`} />;
+      case 'delivery': return <Package className={`${iconClass} bg-[#fef0ef] text-[#f1594b]`} />;
+      case 'bike': return <Bike className={`${iconClass} bg-[#fef0ef] text-[#f1594b]`} />;
+      default: return <Truck className={`${iconClass} bg-[#fef0ef] text-[#f1594b]`} />;
     }
   };
 
@@ -75,11 +75,11 @@ const ServiceCard = ({ service, onRate }: { service: TransportService; onRate: (
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary/20 rounded-2xl">
+      <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-[#f1594b]/20 rounded-2xl">
         <CardHeader className="pb-3">
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-2">
-              <Badge variant="secondary" className="font-normal">
+              <Badge className="font-normal bg-[#fef0ef] text-[#f1594b] hover:bg-[#fef0ef]">
                 {getServiceTypeName(service.type)}
               </Badge>
               <Badge variant="outline" className="flex items-center gap-1 text-xs">
@@ -88,7 +88,7 @@ const ServiceCard = ({ service, onRate }: { service: TransportService; onRate: (
               </Badge>
             </div>
             <div className="flex items-center gap-1">
-              <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+              <Star className="w-4 h-4 text-[#f1594b] fill-[#f1594b]" />
               <span className="font-medium">{service.averageRating.toFixed(1)}</span>
               <span className="text-xs text-gray-500 mr-1">({service.totalRatings})</span>
             </div>
@@ -105,8 +105,8 @@ const ServiceCard = ({ service, onRate }: { service: TransportService; onRate: (
               
               <div className="flex flex-wrap gap-2 mb-3">
                 {service.features.map((feature, index) => (
-                  <div key={index} className="flex items-center text-xs text-gray-600 bg-gray-50 px-2 py-1 rounded-full">
-                    <CheckCircle className="w-3 h-3 ml-1 text-green-500" />
+                  <div key={index} className="flex items-center bg-[#fef0ef] text-[#f1594b] px-2 py-1 rounded-full">
+                    <CheckCircle className="w-3 h-3 ml-1 text-[#f1594b]" />
                     {feature}
                   </div>
                 ))}
@@ -131,7 +131,7 @@ const ServiceCard = ({ service, onRate }: { service: TransportService; onRate: (
                       <Star
                         className={`w-5 h-5 ${
                           (hoveredRating || rating) >= star
-                            ? 'text-amber-400 fill-amber-400'
+                            ? 'text-[#f1594b] fill-current'
                             : 'text-gray-300'
                         }`}
                       />
@@ -143,17 +143,17 @@ const ServiceCard = ({ service, onRate }: { service: TransportService; onRate: (
               <div className="flex gap-2">
                 <a
                   href={`tel:${service.phone}`}
-                  className="p-2 bg-[#E1AA36] text-white rounded-lg hover:bg-[#d49e2e] transition-colors"
+                  className="p-2 bg-[#f1594b] text-white rounded-lg hover:bg-[#e04a3b] transition-colors"
                 >
-                  <Phone className="w-5 h-5" />
+                  <Phone className="w-5 h-5 text-white" />
                 </a>
                 <a
                   href={`https://wa.me/${service.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 bg-[#E1AA36] text-white rounded-lg hover:bg-[#d49e2e] transition-colors"
+                  className="p-2 bg-[#f1594b] text-white rounded-lg hover:bg-[#e04a3b] transition-colors"
                 >
-                  <MessageCircle className="w-5 h-5" />
+                  <MessageCircle className="w-5 h-5 text-white" />
                 </a>
               </div>
             </div>
@@ -314,17 +314,17 @@ export const Transport = () => {
     {
       title: 'اختر نوع الخدمة',
       description: 'حدد نوع الخدمة التي تحتاجها',
-      icon: <Package className="w-8 h-8 text-[#E1AA36]" />,
+      icon: <Package className="w-8 h-8 text-[#f1594b]" />,
     },
     {
       title: 'تأكيد الطلب',
       description: 'تحقق من السعر وحدد الموقع',
-      icon: <CheckCircle className="w-8 h-8 text-[#E1AA36]" />,
+      icon: <CheckCircle className="w-8 h-8 text-[#f1594b]" />,
     },
     {
       title: 'تتبع الطلب',
       description: 'تتبع سائقك في الوقت الفعلي',
-      icon: <MapPin className="w-8 h-8 text-[#E1AA36]" />,
+      icon: <MapPin className="w-8 h-8 text-[#f1594b]" />,
     },
   ];
 
@@ -361,7 +361,7 @@ export const Transport = () => {
                 placeholder="ابحث عن خدمة توصيل..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pr-12 pl-4 py-6 text-base border-gray-300 focus-visible:ring-2 focus-visible:ring-[#E1AA36] focus-visible:ring-offset-2 text-right"
+                className="pr-12 pl-4 py-6 text-base border-gray-300 focus-visible:ring-2 focus-visible:ring-[#f1594b] focus-visible:ring-offset-2 text-right"
               />
             </div>
             
@@ -373,7 +373,7 @@ export const Transport = () => {
                 <select
                   value={selectedPackageType}
                   onChange={(e) => setSelectedPackageType(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E1AA36] focus:border-[#E1AA36]"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f1594b] focus:border-[#f1594b]"
                 >
                   <option value="all">الكل</option>
                   {deliveryOptions.map((option) => (
@@ -391,7 +391,7 @@ export const Transport = () => {
                 <select
                   value={selectedArea}
                   onChange={(e) => setSelectedArea(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E1AA36] focus:border-[#E1AA36]"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f1594b] focus:border-[#f1594b]"
                 >
                   <option value="all">كل المناطق</option>
                   {areas.map((area) => (
@@ -403,7 +403,7 @@ export const Transport = () => {
               </div>
             </div>
             
-            <Button className="w-full py-6 text-lg bg-[#E1AA36] hover:bg-[#d49e2e] text-white">
+            <Button className="w-full py-6 text-lg bg-[#f1594b] hover:bg-[#e04a3b] text-white">
               ابحث الآن
             </Button>
           </div>
@@ -418,7 +418,7 @@ export const Transport = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {howItWorks.map((step, index) => (
               <div key={index} className="bg-white p-6 rounded-xl shadow-sm text-center">
-                <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-[#FEF8E8] rounded-full">
+                <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-[#fef0ef] rounded-full">
                   {step.icon}
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">
@@ -444,30 +444,30 @@ export const Transport = () => {
             <TabsList className="grid w-full grid-cols-4 h-12 mb-8 bg-gray-100 p-1 rounded-xl">
               <TabsTrigger 
                 value="all" 
-                className="data-[state=active]:bg-[#E1AA36] data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg flex items-center justify-center text-gray-700 data-[state=active]:hover:bg-[#d49e2e] hover:bg-gray-100 transition-colors"
+                className="data-[state=active]:bg-[#f1594b] data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg flex items-center justify-center text-gray-700 data-[state=active]:hover:bg-[#e04a3b] hover:bg-gray-100 transition-colors"
               >
                 <Filter className="w-4 h-4 ml-1" />
                 <span>الكل</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="taxi" 
-                className="data-[state=active]:bg-[#E1AA36] data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg flex items-center justify-center text-gray-700 data-[state=active]:hover:bg-[#d49e2e] hover:bg-gray-100 transition-colors"
+                className="data-[state=active]:bg-[#f1594b] data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg flex items-center justify-center text-gray-700 data-[state=active]:hover:bg-[#e04a3b] hover:bg-gray-100 transition-colors"
               >
-                <Car className="w-4 h-4 ml-1" />
+                <Clock className="w-4 h-4 text-current ml-1" />
                 <span>سيارات الأجرة</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="delivery" 
-                className="data-[state=active]:bg-[#E1AA36] data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg flex items-center justify-center text-gray-700 data-[state=active]:hover:bg-[#d49e2e] hover:bg-gray-100 transition-colors"
+                className="data-[state=active]:bg-[#f1594b] data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg flex items-center justify-center text-gray-700 data-[state=active]:hover:bg-[#e04a3b] hover:bg-gray-100 transition-colors"
               >
-                <Package className="w-4 h-4 ml-1" />
+                <Package className="w-4 h-4 text-current ml-1" />
                 <span>توصيل</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="bike" 
-                className="data-[state=active]:bg-[#E1AA36] data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg flex items-center justify-center text-gray-700 data-[state=active]:hover:bg-[#d49e2e] hover:bg-gray-100 transition-colors"
+                className="data-[state=active]:bg-[#f1594b] data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg flex items-center justify-center text-gray-700 data-[state=active]:hover:bg-[#e04a3b] hover:bg-gray-100 transition-colors"
               >
-                <Bike className="w-4 h-4 ml-1" />
+                <Bike className="w-4 h-4 text-current ml-1" />
                 <span>دراجات نارية</span>
               </TabsTrigger>
             </TabsList>

@@ -145,17 +145,12 @@ export const Footer: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <div className="mb-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 md:w-10 md:h-10 bg-[#FF0066] rounded-lg flex items-center justify-center">
-                    <MessageCircle className="w-4 h-4 md:w-5 md:h-5 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-[#FF0066] flex items-center gap-2">
-                    <span>أويد</span>
-                    <span className="text-[#FF0066]/60">|</span>
-                    <span>ⴰⵡⵉⴷ</span>
-                    <span className="text-[#FF0066]/60">|</span>
-                    <span>AWID</span>
-                  </h3>
+                <div className="mb-4">
+                  <img 
+                    src="/images/tawsillogo.png.png" 
+                    alt="توصيل بيوكرة - خدمات التوصيل السريع" 
+                    className="h-12 md:h-16 w-auto" 
+                  />
                 </div>
                 <p className="text-sm md:text-base text-white/80 text-right leading-relaxed">
                   نوفر لكم أفضل خدمات التوصيل في مدينة بيوكرى. فريق محترف ومخصص لراحتكم في أسرع وقت وبأعلى معايير الجودة.
