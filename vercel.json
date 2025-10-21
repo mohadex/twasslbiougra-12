@@ -7,7 +7,7 @@
       "config": {
         "distDir": "dist",
         "installCommand": "npm install",
-        "buildCommand": "npm run build"
+        "buildCommand": "npx vite build"
       }
     }
   ],
